@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Memory Game</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="styles/style.css" rel="stylesheet" type="text/css">
+    <!--<link href="https://fonts.googleapis.com/css?family=Bitter|Indie+Flower" rel="stylesheet">-->
+  </head>
+  <body>
+    <div id="wrapper">
+<h1>Memory Game</h1>
+<form>
+  <label id="question">Number of cards</label>
+  <select id="selection" onchange="displayCards()">
+    <option value="12">12</option>
+    <option value="20">20</option>
+    <option value="30">30</option>
+    <option value="42">42</option>
+    <option value="56">56</option>
+    </select>
+</form>
+<p id="time">0 sec</p>
+<div id="container"></div>
+<footer>Created by IvanaGoSt</footer>
+</div>
+    <script src="scripts/main.js"></script>
+      </body>
+</html>
