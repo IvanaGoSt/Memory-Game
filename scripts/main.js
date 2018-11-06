@@ -3,19 +3,22 @@ const container = document.querySelector("#container");
 
 let arrOfSigns = ["car", "camera-retro", "ambulance", "anchor", "balance-scale", "bath", "bed", "beer", "bell", "bicycle", "binoculars", "birthday-cake", "bomb", "bug", "bus", "coffee", "cut", "dice", "drum", "envelope", "flask", "futbol", "gem", "gift", "glasses", "home", "lemon", "paperclip"];
 
-let card;
+let cardIsClickable = true;
 let arrOfPairs = [];
 let openedPairs = [];
 let time;
 let sec;
+let stopWatch = document.getElementById("time");
 
 function displayCards(num) {
-  container.addEventListener("click", getTime, {once:true});
+  sec = 0;
+  stopWatch.innerHTML = sec + " sec";
+  container.addEventListener("click", getTime, {once:true}); //stopwatch starts only when you click first card
 
   let selection = document.getElementById("selection");
 let numberOfCards = Number(selection.value);
 
-  while(container.firstChild){    container.removeChild(container.firstChild);
+  while(container.firstChild){    container.removeChild(container.firstChild);// make new grid of cards
 }
   num = numberOfCards;
   giveRandomCards(num);
@@ -39,7 +42,7 @@ let numberOfCards = Number(selection.value);
   }
 
   for(let i = 0; i < num; i++) {
-    card = document.createElement("div");
+    let card = document.createElement("div");
     card.classList.add("cards");
     card.style.cssText = "border: 1px solid black; background-color: lightgray; display: flex; justify-content: center; align-items: center; font-size: 2em";
     container.appendChild(card);
@@ -75,16 +78,21 @@ function openCards() {
       if(cards[i].innerHTML != "") {
         return;
       }
+      if(cardIsClickable === true){
         cards[i].innerHTML = "<i class='fas fa-" + arrOfPairs[i] + "'></i>";
       openedCards.push(arrOfPairs[i]);
+      }
+
      if(openedCards.length === 2) {
        if(openedCards[0] !== openedCards[1]) {
+         cardIsClickable = false;
        setTimeout(closeCards, 800);
        function closeCards() {                     cards[arrOfPairs.indexOf(openedCards[0])].innerHTML = "";
 cards[arrOfPairs.indexOf(openedCards[1])].innerHTML = "";
 cards[arrOfPairs.lastIndexOf(openedCards[0])].innerHTML = "";
 cards[arrOfPairs.lastIndexOf(openedCards[1])].innerHTML = "";
     openedCards.splice(0, 2);
+     cardIsClickable = true;
          }
        }else {
          openedPairs.push(openedCards[0], openedCards[1]);
@@ -99,13 +107,10 @@ cards[arrOfPairs.lastIndexOf(openedCards[1])].innerHTML = "";
   }
 }
  function getTime() {
-   sec = 0;
-   let stopWatch = document.getElementById("time");
     time = setInterval(getNewSecond, 1000);
   function getNewSecond() {
     sec++;
     stopWatch.innerHTML = sec + " sec";
   }
 }
-
 displayCards(12);
